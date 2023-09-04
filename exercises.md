@@ -44,8 +44,8 @@ Some free online Git courses/tutorials available:
    - create and checkout a new development branch for your modifications  
    - edit files locally (e.g. add, remove & modify rows)
    - add & commit changes
-   - merge your development branch to `master` branch
-   - try pushing `master` to remote repo
+   - merge your development branch to `main` branch
+   - try pushing `main` to remote repo
    - resolve conflicts when needed, ([help](https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/)), commit and push
 5. Go back to 4 (once at least)
 
