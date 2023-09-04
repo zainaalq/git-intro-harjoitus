@@ -126,11 +126,11 @@ _VCS is a fundamental tool for software development, and it's used not only by i
     ```
 
 1. Initialize git repo: `git init`
-1. choose files with `git add`
+1. choose files with `git add <list-of-files>`, for example: `git add .` to choose all files in the current folder  
 1. commit chosen files with `git commit -m "my commit message"`
    - use describing commit messages, check: [How to Write Better Git Commit Messages – A Step-By-Step Guide](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
    - previous commit can be replaced with: `git commit --amend -m "my commit message"`, Note that this modifies commit history and should not be used in published branches
-   - before commits make sure that you are in the correct branch and have chosen correct files! (`git status`)
+   - _before commits make sure that you are in the correct branch and have chosen correct files!_ (`git status`)
 
 ---
 
@@ -189,7 +189,7 @@ Merging is the process of combining changes from one branch into another. This i
 4. If you encounter issues during a merge and want to abort the merge process, you can use: `git merge --abort`
 5. Finally, after resolving conflicts and completing the merge, you need to commit the merge changes to finalize the process: `git commit -m "Merge branch 'source-branch' into 'target-branch'"`
 
-#### Using `git rebase` to integrate changes
+#### Using `git rebase` to integrate changes (optional)
 
 git rebase is a Git command used for modifying the commit history of a branch. Unlike git merge, which integrates changes from one branch into another with a new merge commit, git rebase rewrites the commit history by moving or combining commits from one branch onto another. This can result in a linear, more streamlined commit history.
 
@@ -337,7 +337,7 @@ Reading
 
 Before testing these commands you need to create an empty project for example in Github and follow the instructions to set the remote in your local repo. Additionally, you need to [setup authentication with Github](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
 
-### Git Pull
+### Git pull
 
 The `git pull` command is used to fetch changes from a remote repository and merge them into your current branch. It's a combination of `git fetch` and `git merge`.
 
@@ -350,7 +350,7 @@ git pull <remote> <branch>
 git pull origin main
 ```
 
-### Git Push
+### Git push
 
 The `git push` command is used to send your local commits to a remote repository. It updates the remote repository with your changes.
 
@@ -365,7 +365,7 @@ git push origin feature-branch
 
 If there is changes in the remote branch, you need to pull the changes and resolve possible conflicts before pushing your local branch.
 
-### git fetch
+### Git fetch
 
 The `git fetch` command retrieves changes from a remote repository and stores them locally. Unlike git pull, it doesn't automatically merge the changes into your current branch. It's useful for inspecting changes before merging.
 
