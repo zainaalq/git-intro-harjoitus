@@ -294,7 +294,7 @@ A collection of useful _.gitignore_ templates for different kind projects [in Gi
   - Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
   - Disadvantages: Can be seen as overcomplicated for smaller projects and may introduce unnecessary overhead.
 
-- **GitHub Flow:**  GitHub Flow is a simplified workflow often used in open-source and web development. It involves a "master" branch for production-ready code and feature branches for development. Changes are continuously integrated into the master branch through pull requests.
+- **GitHub Flow:**  GitHub Flow is a simplified workflow often used in open-source and web development. It involves a "main" branch for production-ready code and feature branches for development. Changes are continuously integrated into the main branch through pull requests.
   - Advantages Simple and effective for continuous deployment and collaboration. Suitable for fast-paced, web-centric projects.
   - Disadvantages: May not be suitable for projects with longer release cycles or complex version management.
 
@@ -306,7 +306,7 @@ A collection of useful _.gitignore_ templates for different kind projects [in Gi
   - Advantages Simplicity, encourages small and frequent commits, and ensures a very stable "trunk" at all times.
   - Disadvantages: Can be challenging for larger teams or complex projects, as it requires strict discipline and automation.
 
-- **Release Branching:** In this strategy, there's a "develop" branch for ongoing work, and when it's time for a release, a "release" branch is created. Bug fixes for the release are made on the release branch, and once it's stable, it's merged into "master."
+- **Release Branching:** In this strategy, there's a "develop" branch for ongoing work, and when it's time for a release, a "release" branch is created. Bug fixes for the release are made on the release branch, and once it's stable, it's merged into "main."
   - Advantages Provides a way to stabilize the code for releases while still allowing ongoing development.
   - Disadvantages: Can introduce complexity in managing multiple branches, and merging can be challenging.
 
@@ -404,8 +404,9 @@ _If you master the command-line it's easy to understand how git works and use di
 ## More learning materials
 
 - Free book: [Pro Git](http://git-scm.com/book/en/v2)
-- Basics at Codecademy: [Learn Git](https://www.codecademy.com/learn/learn-git)
 - [GitHub Guides](https://guides.github.com/)
 - [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials/)
 
 ---
+
+[Exercises](./exercises.md)
