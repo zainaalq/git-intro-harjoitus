@@ -291,7 +291,7 @@ A collection of useful _.gitignore_ templates for different kind projects [in Gi
   - Disadvantages: Can lead to a large number of branches, and merging can become complex if there are many long-lived feature branches.
 
 - **Gitflow Workflow:**  Gitflow is a branching model that defines specific branch naming and usage conventions. It typically includes a "develop" branch for ongoing development, "feature" branches for new features, "release" branches for preparing releases, and a "master" branch for stable releases.
-Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
+  - Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
   - Disadvantages: Can be seen as overcomplicated for smaller projects and may introduce unnecessary overhead.
 
 - **GitHub Flow:**  GitHub Flow is a simplified workflow often used in open-source and web development. It involves a "master" branch for production-ready code and feature branches for development. Changes are continuously integrated into the master branch through pull requests.
