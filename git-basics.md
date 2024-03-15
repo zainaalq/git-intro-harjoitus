@@ -7,24 +7,24 @@
 - Git
   - Basic concepts
   - Usage & workflows
-- Remote repositories and hosting services: Github, Bitbucket, Gitlab
+- Remote repositories and hosting services
 - Links to Learning materials
 - [Exercises](exercises.md)
 
 ---
 
-## Why to use VCS
-
-_(Version Control System, revision control)_
+## Why to use VCS _(Version Control System, a.k.a. revision control)_
 
 - Compulsory tool for professional software development
-- Track and trace code changes
-- What is changed since last version and before?
-  - Why, comments
+- Complete history of changes -> Track and trace code changes
+- What is changed since last version and before that?
+  - Why?
   - When did that happen?
   - Who did that?
+- Parallel development of different features
+- Compare different versions
 - Share project code (and development history) —> Collaboration
-- Project backup?
+- Backup for project?
 - Example: [check revisions][wiki1] of an [Wikipedia article][wiki2]
 
 [wiki1]: https://en.wikipedia.org/w/index.php?title=Git_(software)&action=history
@@ -32,7 +32,7 @@ _(Version Control System, revision control)_
 
 Read: [What is version control?](https://www.atlassian.com/git/tutorials/what-is-version-control)
 
-_VCS is a fundamental tool for software development, and it's used not only by individual developers but also by teams and organizations of all sizes to manage and collaborate on software projects efficiently. It plays a crucial role in ensuring code quality, collaboration, and project management in the software development process._
+>VCS is a fundamental tool for software development, and it's used not only by individual developers but also by teams and organizations of all sizes to manage and collaborate on software projects efficiently. It plays a crucial role in ensuring code quality, collaboration, and project management in the software development process.
 
 ---
 
@@ -51,10 +51,11 @@ _VCS is a fundamental tool for software development, and it's used not only by i
 
 ## Git
 
+- "The Stupid Content Tracker"
+- One of the most popular version control systems currently available
 - Development started By Linus Torvalds 2005
 - Created initially for Linux kernel development
-- The Stupid Content Tracker
-- Distributed Version Control System (DVCS)
+- Distributed Version Control System (DVCS): instead of a central repository of all the version history, each user has a full-fledged repository with complete history and full version-tracking capabilities, independent of network access or a central server
 - Content agnostic: can be used for anykind of files
   - with some restrictions
   - full functionality for plain text files
@@ -286,31 +287,137 @@ A collection of useful _.gitignore_ templates for different kind projects [in Gi
 
 ## Git workflows (branching strategies)
 
-- **Feature Branching:** In this strategy, each new feature or task gets its own branch. Developers work on these branches, and when the feature is complete, it's merged back into the main development branch.
-  - Advantages: Isolates new features, makes it easy to track progress on individual features, and allows for concurrent development of multiple features.
-  - Disadvantages: Can lead to a large number of branches, and merging can become complex if there are many long-lived feature branches.
+### Feature based branching
 
-- **Gitflow Workflow:**  Gitflow is a branching model that defines specific branch naming and usage conventions. It typically includes a "develop" branch for ongoing development, "feature" branches for new features, "release" branches for preparing releases, and a "master" branch for stable releases.
-  - Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
-  - Disadvantages: Can be seen as overcomplicated for smaller projects and may introduce unnecessary overhead.
+In feature branching strategy, each new feature or task gets its own branch. Developers work on these branches, and when the feature is complete, it's merged back into the main development branch.
+
+- Advantages: Isolates new features, makes it easy to track progress on individual features, and allows for concurrent development of multiple features.
+- Disadvantages: Can lead to a large number of branches, and merging can become complex if there are many long-lived feature branches.
+
+```mermaid
+%%{init: {'theme': 'default'}}%%
+gitGraph
+    commit id:"A" tag:"Main Start"
+    branch feature
+    checkout feature
+    commit id:"B" tag:"Feature1 Start"
+    commit id:"C" tag:"Feature1 Progress"
+    checkout main
+    branch feature2
+    checkout feature2
+    commit id:"G" tag:"Feature2 Start"
+    commit id:"H" tag:"Feature2 Progress"
+    checkout main
+    commit id:"D" tag:"Main Progress"
+    checkout feature
+    commit id:"E" tag:"Feature1 Complete"
+    checkout main
+    merge feature
+    commit id:"F" tag:"After Feature1 Merge"
+    checkout feature2
+    commit id:"I" tag:"Feature2 Complete"
+    checkout main
+    merge feature2
+    commit id:"J" tag:"After Feature2 Merge"
+```
 
 - **GitHub Flow:**  GitHub Flow is a simplified workflow often used in open-source and web development. It involves a "main" branch for production-ready code and feature branches for development. Changes are continuously integrated into the main branch through pull requests.
   - Advantages Simple and effective for continuous deployment and collaboration. Suitable for fast-paced, web-centric projects.
   - Disadvantages: May not be suitable for projects with longer release cycles or complex version management.
 
+  ```mermaid
+  gitGraph
+      commit id:"A" tag:"Main Start"
+      branch feature
+      checkout feature
+      commit id:"B" tag:"Feature Start"
+      commit id:"C" tag:"Feature Progress"
+      checkout main
+      commit id:"D" tag:"Main Progress"
+      checkout feature
+      commit id:"E" tag:"Feature Complete"
+      checkout main
+      merge feature
+      commit id:"F" tag:"After Feature Merge"
+  ```
+
 - **GitLab Flow:** Similar to GitHub Flow, GitLab Flow focuses on a simple workflow using merge requests. It includes feature branches for development and long-lived "production" and "staging" branches for different stages of the development process.
   - Advantages Well-suited for teams using GitLab's built-in features. Provides clear separation of different development stages.
   - Disadvantages: May require some adaptation if not using GitLab's specific tools and features.
 
-- **Centralized (aka Trunk-Based) Development:** In this strategy, there's only one long-lived branch (typically "main" or legacy "master"). All development work, including new features, bug fixes, and experiments, is done on this branch. Continuous integration practices ensure that the code on the main branch is always in a deployable state.
-  - Advantages Simplicity, encourages small and frequent commits, and ensures a very stable "trunk" at all times.
-  - Disadvantages: Can be challenging for larger teams or complex projects, as it requires strict discipline and automation.
+### Gitflow
 
-- **Release Branching:** In this strategy, there's a "develop" branch for ongoing work, and when it's time for a release, a "release" branch is created. Bug fixes for the release are made on the release branch, and once it's stable, it's merged into "main."
-  - Advantages Provides a way to stabilize the code for releases while still allowing ongoing development.
-  - Disadvantages: Can introduce complexity in managing multiple branches, and merging can be challenging.
+Gitflow Workflow is a branching model that defines specific branch naming and usage conventions. It typically includes a "develop" branch for ongoing development, "feature" branches for new features, "release" branches for preparing releases, and a "main" branch for stable releases.
 
-Reading
+- Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
+- Disadvantages: Can be seen as overcomplicated for smaller projects and may introduce unnecessary overhead.
+
+  ```mermaid
+  gitGraph
+      commit id:"A" tag:"Main Start"
+      branch develop
+      checkout develop
+      commit id:"B" tag:"Develop Progress"
+      branch feature
+      checkout feature
+      commit id:"C" tag:"Feature Start"
+      commit id:"D" tag:"Feature Progress"
+      checkout develop
+      commit id:"E" tag:"Develop Progress"
+      checkout feature
+      commit id:"F" tag:"Feature Complete"
+      checkout develop
+      merge feature
+      commit id:"G" tag:"After Feature Merge"
+      branch release
+      checkout release
+      commit id:"H" tag:"Release Start"
+      commit id:"I" tag:"Release Progress"
+      checkout main
+      merge release
+      commit id:"J" tag:"After Release Merge"
+  ```
+
+### Centralized (aka Trunk-Based) Development
+
+In this strategy, there's only one long-lived branch (typically "main" or legacy "master"). All development work, including new features, bug fixes, and experiments, is done on this branch. Continuous integration practices ensure that the code on the main branch is always in a deployable state.
+
+- Advantages Simplicity, encourages small and frequent commits, and ensures a very stable "trunk" at all times.
+- Disadvantages: Can be challenging for larger teams or complex projects, as it requires strict discipline and automation.
+
+```mermaid
+gitGraph
+    commit id:"A" tag:"Main Start"
+    commit id:"B" tag:"Main Progress"
+    commit id:"C" tag:"Main Progress"
+    commit id:"D" tag:"Main Progress"
+    commit id:"E" tag:"Main Progress"
+    commit id:"F" tag:"Main Progress"
+```
+
+### Release Branching
+
+In this strategy, there's a "develop" branch for ongoing work, and when it's time for a release, a "release" branch is created. Bug fixes for the release are made on the release branch, and once it's stable, it's merged into "main."
+
+- Advantages Provides a way to stabilize the code for releases while still allowing ongoing development.
+- Disadvantages: Can introduce complexity in managing multiple branches, and merging can be challenging.
+
+  ```mermaid
+  gitGraph
+      commit id:"A" tag:"Main Start"
+      branch develop
+      checkout develop
+      commit id:"B" tag:"Develop Progress"
+      branch release
+      checkout release
+      commit id:"C" tag:"Release Start"
+      commit id:"D" tag:"Release Progress"
+      checkout main
+      merge release
+      commit id:"E" tag:"After Release Merge"
+  ```
+
+### Reading
 
 - [Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows) (Atlassian)
 - [The best Git branching strategies](https://blog.mergify.com/the-best-git-branching-strategies/) (by Hugo Escafit)
@@ -319,12 +426,14 @@ Reading
 
 ## [GitHub](https://github.com)
 
-- **GitHub != Git** (Git is the application, GitHub is a company/service utilizing Git and providing a lot more than just version tracking.)
+- **GitHub != Git**: Git is the application, GitHub is a company and a web service utilizing Git and providing a lot more than just version tracking.
 - Commercial service providing a remote git repository server, project management tools, wiki, issue tracker, webpage hosting, etc.
-- has a wide user community
-- **Fork**: Create a new Github project, clone the git repository of an existing project and add repo to the new project
-- Almost _de facto_ hosting service for Open Source projects
+- Wide user community
+- **Fork**: Create a new Github project, clone the git repository of an existing project and add the cloned repo to the new project
+- Almost _de facto_ hosting service for Open Source projects at the moment
 - Repositories (projects) are public by default, private repos are accessible only for invited collaborators
+  - Note: collaborators have always the write access to the repository
+- **Pull request**: A request to merge changes from one project branch into another
 
 ## Other remote repository service providers
 
