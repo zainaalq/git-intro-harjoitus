@@ -352,31 +352,31 @@ Gitflow Workflow is a branching model that defines specific branch naming and us
 - Advantages: Provides a structured and organized workflow, making it easier to manage releases and hotfixes.
 - Disadvantages: Can be seen as overcomplicated for smaller projects and may introduce unnecessary overhead.
 
-  ```mermaid
-  gitGraph
-      commit id:"A" tag:"Main Start"
-      branch develop
-      checkout develop
-      commit id:"B" tag:"Develop Progress"
-      branch feature
-      checkout feature
-      commit id:"C" tag:"Feature Start"
-      commit id:"D" tag:"Feature Progress"
-      checkout develop
-      commit id:"E" tag:"Develop Progress"
-      checkout feature
-      commit id:"F" tag:"Feature Complete"
-      checkout develop
-      merge feature
-      commit id:"G" tag:"After Feature Merge"
-      branch release
-      checkout release
-      commit id:"H" tag:"Release Start"
-      commit id:"I" tag:"Release Progress"
-      checkout main
-      merge release
-      commit id:"J" tag:"After Release Merge"
-  ```
+```mermaid
+gitGraph
+    commit id:"A" tag:"Main Start"
+    branch develop
+    checkout develop
+    commit id:"B" tag:"Develop Progress"
+    branch feature
+    checkout feature
+    commit id:"C" tag:"Feature Start"
+    commit id:"D" tag:"Feature Progress"
+    checkout develop
+    commit id:"E" tag:"Develop Progress"
+    checkout feature
+    commit id:"F" tag:"Feature Complete"
+    checkout develop
+    merge feature
+    commit id:"G" tag:"After Feature Merge"
+    branch release
+    checkout release
+    commit id:"H" tag:"Release Start"
+    commit id:"I" tag:"Release Progress"
+    checkout main
+    merge release
+    commit id:"J" tag:"After Release Merge"
+```
 
 ### Centralized (aka Trunk-Based) Development
 
@@ -402,20 +402,20 @@ In this strategy, there's a "develop" branch for ongoing work, and when it's tim
 - Advantages Provides a way to stabilize the code for releases while still allowing ongoing development.
 - Disadvantages: Can introduce complexity in managing multiple branches, and merging can be challenging.
 
-  ```mermaid
-  gitGraph
-      commit id:"A" tag:"Main Start"
-      branch develop
-      checkout develop
-      commit id:"B" tag:"Develop Progress"
-      branch release
-      checkout release
-      commit id:"C" tag:"Release Start"
-      commit id:"D" tag:"Release Progress"
-      checkout main
-      merge release
-      commit id:"E" tag:"After Release Merge"
-  ```
+```mermaid
+gitGraph
+    commit id:"A" tag:"Main Start"
+    branch develop
+    checkout develop
+    commit id:"B" tag:"Develop Progress"
+    branch release
+    checkout release
+    commit id:"C" tag:"Release Start"
+    commit id:"D" tag:"Release Progress"
+    checkout main
+    merge release
+    commit id:"E" tag:"After Release Merge"
+```
 
 ### Reading
 
@@ -485,6 +485,53 @@ git fetch <remote>
 git fetch origin  # fetches the latest changes from the origin remote repository but doesn't merge them into your current branch
 git fetch --all  # fetches all branches from all remotes
 ```
+
+### Example workflow
+
+```mermaid
+sequenceDiagram
+    participant R as Remote Repo
+    participant D1 as Developer 1
+    participant D2 as Developer 2
+
+    Note over D1: Developer 1 creates a project and a repo
+    D1->>D1: initial commit
+
+    Note over D1,R: Developer 1 shares the repository
+    D1->>R: push
+
+    Note over D2,R: Developer 2 clones the repository
+    R->>D2: clone
+
+    Note over D1: Developer 1 makes changes
+    D1->>D1: commit changes
+
+    Note over D1,R: Developer 1 pushes changes
+    D1->>R: push changes
+
+    Note over D2: Developer 2 makes changes
+    D2->>D2: commit changes
+
+    Note over D2,R: Developer 2 tries to push
+    D2-xR: push fails
+
+    Note over D2,R: Developer 2 pulls changes
+    R->>D2: pull changes
+
+    Note over D2: Developer 2 resolves conflicts
+    D2->>D2: merge changes
+
+    Note over D2,R: Developer 2 pushes successfully
+    D2->>R: push changes
+```
+
+1. Both Developer 1 and Developer 2 are working with same project (remote repository) on their local machines.
+1. Developer 1 makes some changes locally, commits them, and then pushes these changes back to the remote repository.
+1. Meanwhile, Developer 2 also makes changes. However, when Developer 2 attempts to push these changes, the operation fails because the remote repository has updates that Developer 2 doesn't have.
+1. Developer 2 then pulls the latest changes from the remote repository. This step might involve merging changes and resolving conflicts.
+1. After successfully integrating the new changes, Developer 2 pushes their changes to the remote repository.
+
+This sequence represents a common collaborative workflow in Git, demonstrating how developers coordinate by pulling changes from and pushing changes to a shared remote repository.
 
 ---
 
