@@ -119,7 +119,7 @@ Read: [What is version control?](https://www.atlassian.com/git/tutorials/what-is
 [Source](http://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
 
 1. Open terminal/Git bash in your local project folder
-1. make sure you have set username and email for Git (these are saved within commit data)
+1. Make sure you have set username and email for Git (these are saved within commit data)
 
     ```sh
     git config --global user.name "My Name"
@@ -127,11 +127,107 @@ Read: [What is version control?](https://www.atlassian.com/git/tutorials/what-is
     ```
 
 1. Initialize git repo: `git init`
-1. choose files with `git add <list-of-files>`, for example: `git add .` to choose all files in the current folder  
-1. commit chosen files with `git commit -m "my commit message"`
-   - use describing commit messages, check: [How to Write Better Git Commit Messages – A Step-By-Step Guide](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
+    - When creating a new project, the first step is to initialize a new git repository. This is done by running the `git init` command in the directory of the project. This will create a new `.git` directory in the root of the project, which will contain all the necessary files for the repository. The init command is only be run once, when the project is first created.
+1. Choose files/changes you want to include in the next commit with `git add <list-of-files>`. `git add` is used to add file contents to the index. This is the first step in the basic git workflow. When changes are made to the codebase, they need to be added to the index before they can be committed.
+    - `git add .` - Add all changes to the index. The `.` is a wildcard that matches all files and directories in the current directory.
+    - `git add -A` - Add all changes to the index. This is equivalent to running `git add .`.
+    - `git add directory-name/` - Add all changes in the specified directory to the index.
+    - `git add file-name` - Add the specified file to the index. This will stage the file for the next commit.
+1. Commit chosen files with `git commit -m "my commit message"`
+   - use describing commit messages, check tips below
    - previous commit can be replaced with: `git commit --amend -m "my commit message"`, Note that this modifies commit history and should not be used in published branches
    - _before commits make sure that you are in the correct branch and have chosen correct files!_ (`git status`)
+
+#### Tips
+
+A good convention would be to include files and folders relevant to each other to a single commit, instead of adding all changes. This will make it easier to understand the changes made in the commit.
+
+For example if you have changes in files called `login-form.js`, `login-form.css`, `image-carousel.js`, and `image-carousel.css`, it would be a good idea to add the changes in logical groups, such as:
+
+```sh
+git add login-form.js login-form.css
+git commit -m "Add new feature to login form"
+
+git add image-carousel.js image-carousel.css
+git commit -m "Add new feature to image carousel"
+```
+
+**Note:** Git commands are executed in terminal, in the folder where the `.git` directory is located. This is usually the root directory of the project. For example, if your project is located in absolute path of `/usr/home/username/projects/my-project`, you should navigate to that directory before running any git commands. Running any git commands outside of the root directory of the project will result in an error, or other unexpected behavior.
+
+##### Commit Messages
+
+`git commit -m "Example of commit message"` - Commit changes to the codebase with a descriptive message. The `-m` flag is used to specify the commit message. The message itself is enclosed in quotes. The message for this commit is "Example of commit message".
+
+When making changes to the codebase, it is important to write clear and descriptive commit messages. This will make it easier to understand the changes that were made, and why they were made.
+
+A good commit message should be concise, and should explain the reasoning behind the changes. It should also be written in the present tense, and should be no longer than 50 characters.
+
+For example:
+
+```txt
+Add new feature
+```
+
+or
+
+```txt
+Fix bug in login form
+```
+
+From these two examples, it is not that clear what has been done. Instead, a more descriptive commit message might look like this:
+
+```txt
+Add new feature to allow users to reset their password
+```
+
+or
+
+```txt
+Fix bug in login form that was preventing users from logging in
+```
+
+Make sure that the commit message does not use past tense, such as `added`, `fixed`, `removed`, etc. Instead, use present tense, such as `add`, `fix`, `remove`, etc.
+
+Examples of bad commit messages:
+
+```txt
+Added new feature
+Fixed bug
+Removed unused code
+```
+
+Instead, use descriptive commit messages with present tense:
+
+```txt
+Add new feature to allow users to reset their password
+Fix bug in login form that was preventing users from logging in
+Remove unused code from the login component
+```
+
+Make sure that the commit messages start with a capital letter, and do not end with a period.
+
+One good rule of thumb is to imagine that the commit message completes the sentence `If applied, this commit will...`. This will help to write more descriptive commit messages.
+
+```txt
+If applied, this commit will Add new feature to allow users to reset their password
+If applied, this commit will Fix bug in login form that was preventing users from logging in
+If applied, this commit will Remove unused code from the login component
+```
+
+If past tense is used in the commit message, then the sentence will not make sense:
+
+```txt
+If applied, this commit will Added new feature
+If applied, this commit will Fixed bug
+If applied, this commit will Removed unused code
+```
+
+Note that many conventions exists and might differ from one project to another. These conventions mentioned in this document will suffice for most projects and be more than enough for studies. Git commit messages are indication of good code quality and good practices. When reading bad git commit messages, it is often an indication of bad code quality and bad practices.
+
+For more information on writing good commit messages, see the following articles:
+
+- [How to Write a Git Commit Message](https://cbea.ms/git-commit/) - make sure to read this article
+- [How to Write Better Git Commit Messages – A Step-By-Step Guide](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
 
 ---
 
@@ -242,6 +338,8 @@ Remember that conflicts are a natural part of collaborative development. Good co
 - Contains everything else than the working copy of files
 - "physical location" of the local git repo on the file system
 - removing the folder deletes the repository completely, only files in current branch are saved
+
+The `.git` folder is a hidden folder and we do not need to interact with it directly. It contains all the necessary files for the repository, such as the configuration, the index, the object database, and the logs. If some catastrophy happens, it is possible to delete the folder, but this should be left as the last resort. Instead, google the error message, ask around. Most likely the issue is not unique.
 
 ---
 
