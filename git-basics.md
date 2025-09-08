@@ -257,7 +257,7 @@ git diff new-feature main  # Compare changes between 'new-feature' and 'main' br
 
 ### Tagging
 
-Tags are used to mark important points in the history of a project, such as software releases or significant milestones. Unlike branches, which can move as new commits are added, tags are static and provide a way to uniquely identify and reference specific commits.
+_Tags_ are used to mark important points in the history of a project, such as software releases or significant milestones. Unlike _branches_, which can move as new _commits_ are added, _tags_ are static and provide a way to uniquely identify and reference specific commits.
 
 Creating a tag:
 
@@ -288,7 +288,7 @@ Merging is the process of combining changes from one branch into another. This i
 
 #### Using `git rebase` to integrate changes (optional)
 
-git rebase is a Git command used for modifying the commit history of a branch. Unlike git merge, which integrates changes from one branch into another with a new merge commit, git rebase rewrites the commit history by moving or combining commits from one branch onto another. This can result in a linear, more streamlined commit history.
+`git rebase` is a Git command used for modifying the commit history of a branch. Unlike `git merge`, which integrates changes from one branch into another with a new merge commit, `git rebase` rewrites the commit history by moving or combining commits from one branch onto another. This can result in a linear, more streamlined commit history.
 
 Note that rebasing rewrites commit history, which can make it a powerful tool for maintaining a clean and linear history. However, it should be used with caution, especially in shared branches, because it can cause confusion and conflicts for other team members if they are also working on the same branch.
 
@@ -298,10 +298,9 @@ Read: [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-
 
 ### Resolving conflicts
 
-1. **Identify Conflicts**:
-   When you attempt to merge or rebase a branch with conflicting changes, Git will notify you of the conflict in the terminal.
-2. **Open the Conflicted File**:
-   - Open the conflicted file in a code editor.
+1. Identify Conflicts
+   - When you attempt to merge or rebase a branch with conflicting changes, Git will notify you of the conflict in the terminal.
+2. Open the conflicted file in a code editor
    - Git will mark the conflicting sections like this:
 
      ```plaintext
@@ -316,36 +315,39 @@ Read: [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-
    - The `=======` marker separates your changes from the changes in the other branch.
    - The `>>>>>>> branch-name` marker indicates the end of their changes.
    - Many editors and IDEs provide tools for doing this more easily
-3. **Manually Resolve the Conflict**:
-   - Edit the file to choose which changes to keep and how to combine them.
-   - Remove conflict markers and any extra spacing or lines used for markers.
-4. **Save the File**:
-   - Save the file with your changes.
-5. **Repeat as Needed**:
-   - If there are conflicts in multiple files, repeat the conflict resolution process for each file.
-6. **Add and Commit**:
+3. Resolve the conflict by editing the conflicting file:
+   - Review the file and choose which changes/lines to keep and/or how to combine them.
+   - Use editor's conflict resolution tools if available.
+   - Or remove conflict markers and any extra spacing or lines used for markers manually.
+4. Save the file with your changes.
+5. If there are conflicts in multiple files, repeat the conflict resolution process for each file.
+6. Add and Commit updated files
    - After resolving all conflicts, add the files to the staging area using `git add <list of files or .>`.
    - Commit the changes using `git commit -m "commit message"`. Git will create a new merge commit.
-7. **Test Your Changes**:
+7. Test Your Changes
    - After resolving conflicts, it's important to test your code to ensure that the changes are correct and functional.
 
 Remember that conflicts are a natural part of collaborative development. Good communication with your team is essential to coordinate changes and minimize conflicts. Additionally, using version control best practices, such as keeping branches up to date and using feature branches, can help reduce the frequency of conflicts.
 
 ---
 
-## `.git/`
+## `.git/` folder
 
-- Contains everything else than the working copy of files
-- "physical location" of the local git repo on the file system
-- removing the folder deletes the repository completely, only files in current branch are saved
+- Is kind of the "physical location" of the local git repo on the file system: `.git/` folder is created inside the project directory when `git init` is run
+- Contains all the information about the repository, including the entire history of changes, branches, tags
+  - Basically contains everything else than the working copy of the project files
+- Removing the folder deletes the repository and all of its history completely, only files in the current branch are kept
 
 The `.git` folder is a hidden folder and we do not need to interact with it directly. It contains all the necessary files for the repository, such as the configuration, the index, the object database, and the logs. If some catastrophy happens, it is possible to delete the folder, but this should be left as the last resort. Instead, google the error message, ask around. Most likely the issue is not unique.
 
 ---
 
-## Git ignore
+## `.gitignore` file
 
-Which files and changes should be tracked with version control?
+- A plain text file that is used to specify which files and changes should be tracked with version control and which should be ignored
+- Useful for excluding files that are generated automatically, temporary files, build targets, IDE/editor specific files, OS specific files, etc.
+- Is usually created in the root directory of the project and committed to the repository
+- Each line in the file specifies a pattern for files or directories to be ignored
 
 For example in following Eclipse Java project
 
@@ -362,12 +364,13 @@ bin/
 
 `.git/` folder (contains the revision history etc.) and `.gitignore` file itself should be included in version control.
 
-### Stuff to include
+### Stuff to include in version control
 
-- all source code
+- all source code written for the project
+- configuration files needed to build/run the project
 - `README.md` and other documentation
 - license
-- `package.json` and other settings files
+- `package.json` and other manifest files
 - `.gitignore` file: list of local files not to be included in the version control ->
 
 ### Stuff to exclude
