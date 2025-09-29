@@ -20,11 +20,34 @@ git remote add origin https://github.com/zainaalq/git-intro-harjoitus.git
 
 
 
+<<<<<<< HEAD
 
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 
 
 Käyttäjä B muutti tätä riviä
+=======
+
+
+
+tehtävä 2:
+
+
+
+Käyttäjä A lisäsi tämän rivin!
+
+
+
+# Notes – käyttäjä A ja B tekivät muutoksia
+
+
+
+
+
+
+
+
+
+
 
